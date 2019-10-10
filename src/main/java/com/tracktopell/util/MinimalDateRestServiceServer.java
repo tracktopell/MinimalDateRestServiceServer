@@ -16,9 +16,12 @@ public class MinimalDateRestServiceServer extends Thread{
 	public MinimalDateRestServiceServer(Socket s) {
 		this.socket = s;
 	}
-	
+
+	private static long startTime;
+	private static long startTimeCompleted;
 	
 	public static void main(String[] args) {
+		startTime = System.currentTimeMillis();
         int port = 1080;
         if (args.length == 1){ 
         	port = Integer.parseInt(args[0]);
@@ -26,10 +29,13 @@ public class MinimalDateRestServiceServer extends Thread{
  
         try (ServerSocket serverSocket = new ServerSocket(port)) {
  
+			startTimeCompleted = System.currentTimeMillis();
+
             System.out.println(" --------------------- MinimalDateRestServiceServer Server is listening on port " + port+ " --------------------------");
             System.out.println("");
             System.out.println("               visit    http://localhost:" + port+ "/date");
             System.out.println("");
+            System.out.println("T = "+ ( startTimeCompleted - startTime ) + " ms.");
  
             while (true) {
                 Socket socket = serverSocket.accept();
